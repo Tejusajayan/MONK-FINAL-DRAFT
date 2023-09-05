@@ -1,0 +1,347 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice - MONK</title>
+    <link rel="shortcut icon" href="{% static 'IMG/favicon.ico' %}" type="image/x-icon">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ysabeau+Office:ital,wght@1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@1,300&display=swap');
+
+
+*
+{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+body,html
+{
+    font-size: 16px;
+    background: #f4f4f4;
+    line-height: 1.5;
+}
+h3
+{
+    font-family: 'Maven Pro', sans-serif;
+}
+a
+{
+    text-decoration: none;
+    color: #5B9A8B;
+}
+/*HEADER*/
+.header
+{
+    display: flex;
+    background: #fff;
+    padding: 10px 20px;
+    margin-bottom: 2rem;
+    align-items: center;
+    justify-content: space-between;
+}
+.logo
+{
+    font-size: 32px;
+    font-weight: bold;
+    color: #A2FF86;
+    font-family: 'Dancing Script', cursive;
+}
+.main-content
+{
+    padding: 0px 20px;
+}
+.invoice-container
+{
+    max-width: 840px;
+    margin: auto;
+    padding: 3rem;
+    background: #fff;
+    margin-bottom: 2.5rem;
+}
+.top
+{
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+.top-left
+{
+    color: #0034bb;
+}
+.main
+{
+    font-size: 40px;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+}
+.code
+{
+    font-size: 24px;
+}
+.date
+{
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-family: 'Barlow', sans-serif;
+}
+.bill-box
+{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4rem;
+}
+.left,.right
+{
+    max-width: 240px;
+}
+.text-m
+{
+    font-size: 18px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+.title
+{
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: #213363;
+}
+table
+{
+    width: 100%;
+    border-collapse: 0px;
+}
+th,td
+{
+    text-align: left;
+    padding: 5px 10px;
+}
+td
+{
+    padding: 15px 10px;
+    font-family: 'Ysabeau Office', sans-serif;
+}
+th
+{
+    text-transform: uppercase;
+    color: #0034bb;
+    font-weight: 600;
+}
+.quantity
+{
+    width: 100px;
+}
+.cost
+{
+    text-align: right;
+}
+.total
+{
+    font-size: 24px;
+    color: #0034bb;
+}
+.total td
+{
+    border-top: 1px solid #ececec;
+}
+.number
+{
+    text-align: right;
+    font-weight: 600;
+
+}
+.note
+{
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 15px;
+    color: #E7B10A;
+}
+.con
+{
+    margin-top: 25px;
+}
+.con p
+{
+    font-family: 'Urbanist', sans-serif;
+}
+
+@media(max-width:1320px)
+{
+    body,html
+    {
+        font-size: 14px;
+    }
+    .invoice-container .top .date
+    {
+        font-size: 14px;
+    }
+    .invoice-container .top .main
+    {
+        font-size: 32px;
+    }
+    .invoice-container .top .code
+    {
+        font-size: 18px;
+    }
+    .bill-box .text-m
+    {
+        font-size: 14px;
+    }
+    .bill-box .title
+    {
+        font-size: 1.5rem;
+    }
+    .table-bill .total
+    {
+        font-size: 16px;
+    }
+}
+@media(max-width:768px)
+{
+    .invoice-container .top
+    {
+        display: block;
+    }
+    .top-left
+    {
+        margin-bottom: 1rem;
+    }
+    .bill-box
+    {
+        display: block;
+    }
+    .bill-box .left,.bill-box .right
+    {
+        max-width: 100%;
+    }
+    .table-bill table tbody tfoot td th tr
+    {
+        display: block;
+    }
+    /* th
+    {
+        display: none;
+    } */
+    tbody tr
+    {
+        padding: 10px 0px;
+        border-bottom: 1px solid #e5e5e5;
+    }
+    td:first-child
+    {
+        padding-left: 11px;
+    }
+    td
+    {
+        padding: 5px 0px;
+    }
+    .cost
+    {
+        text-align: left;
+        padding-left: 10px;
+    }
+    .total
+    {
+        margin-top: 20px;
+    }
+    .total td
+    {
+        border-top: 0px;
+    }
+    .number
+    {
+        text-align: left;
+    }
+}
+@media(max-width:420px)
+{
+    .header
+    {
+        display: block;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <span class="text">MONK</span>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="invoice-container">
+            <div class="top">
+                <div class="top-left">
+                    <h1 class="main">Invoice</h1>
+                    <span class="code">Order Id: #{{obj.transaction_id}}</span>
+                </div>
+                <div class="top-right">
+                    <div class="date">Date: {{date}}</div>
+                </div>
+            </div>
+
+            <div class="bill-box">
+                <div class="left">
+                    <div class="text-m">Bill From:</div>
+                    <div class="title">Monk</div>
+                </div>
+                <div class="left">
+                    <div class="text-m">Bill To:</div>
+                    <div class="title">{{name}}</div>
+                    <div class="addr">
+                        {{obj.address}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-bill">
+                <table class="table-service">
+                    <thead>
+                        <th class="quantity">Quantity</th>
+                        <th>Product</th>
+                        <th class="cost">Cost</th>
+                    </thead>
+                    <tbody>
+                        {% for i in cart %}
+                        <tr>
+                            <td>{{i.quantity}}</td>
+                            <td>{{i.product.proname}}</td>
+                            <td class="cost">${{i.subtotal}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr class="total">
+                            <td>Total</td>
+                            <td colspan="2" class="number">${{obj.amount}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="con">
+                <center>
+                    <p>Payment Type: {{obj.payment_type}}.</p>
+                    <h3>Take A Screenshot Of This Invoice.</h3>
+                </center>
+            </div>
+            <div class="note">
+                <p>Thank You For Shopping With Us</p>
+                <a href="{% url 'RESETCART' %}">Continue.</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

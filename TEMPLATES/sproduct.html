@@ -1,0 +1,206 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Page - Monk</title>
+    <link rel="stylesheet" href="{% static 'BOOTSTRAP/bootstrap-5.2.1-dist/css/bootstrap.min.css.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/styles.css' %}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <link rel="shortcut icon" href="{% static 'IMG/favicon.ico' %}" type="image/x-icon">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9179412208040771"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <section id="header">
+        <div class="log">
+            <a href="#"><img src="{% static 'IMG\logo.jpg' %}" alt="IMG" width="120px" height="120px" style="margin-top: -2%;"></a>    
+        </div>
+        <div>
+            <ul id="navbar">
+                <li><a href="{% url 'INDEX' %}">HOME</a></li>
+                <li><a href="{% url 'SHOP' %}">SHOP</a></li>
+                <li><a href="{% url 'CONTACT' %}">CONTACT</a></li>
+                <li><a href="{% url 'ABOUT' %}">ABOUT</a></li>
+                <li><a href="{% url 'LOGIN' %}">LOGIN</a></li>
+                <li id="shoppingbag"><a href="{% url 'SHOWCART' %}"><i class="fas fa-shopping-cart"></i></a></li>
+                <li><a href="#" id="close"><i class="far fa-times"></i></a></li>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="{% url 'SHOWCART' %}"><i class="far fa-shopping-bag"></i></a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+    <section id="prodetails" class="section-p1">
+        <div class="single-pro-img">
+            <img src="{{pro.mainimg.url}}" alt="pro1" width="100%" id="MainImg">
+            <div class="small-img-group">
+                <div class="small-img-col">
+                    <img src="{{pro.subimg1.url}}" alt="pro1" width="100%" class="small-img">
+                </div>
+                <div class="small-img-col">
+                    <img src="{{pro.subimg2.url}}" alt="pro1" width="100%" class="small-img">
+                </div>
+                <div class="small-img-col">
+                    <img src="{{pro.subnimg3.url}}" alt="pro1" width="100%" class="small-img">
+                </div>
+                <div class="small-img-col">
+                    <img src="{{pro.subimg4.url}}" alt="pro1" width="100%" class="small-img">
+                </div>
+            </div>
+        </div>
+        <div class="single-pro-details">
+            <h6>Home / T-shirts</h6>
+            <h4>{{pro.proname}}</h4>
+            <h2>₹{{pro.price}}</h2>
+            <select name="size" id="sizeSelect">
+                <option value="">Select Size</option>
+                <option value="S">Small</option>
+                <option value="M">Medium</option>
+                <option value="L">Large</option>
+                <option value="XL">XL</option>
+            </select>
+            <p id="msg" style="display: none;"></p><br>
+            {% if user.is_authenticated %}
+            <button class="normal" id="addCart" data-product-id="{{pro.id}}">Add To Cart</button>
+            {% else %}
+            <p>Please Login To Continue Shopping</p>
+            <button class="normal" disabled style="background-color: #D8D9DA;cursor:initial;">Add To Cart</button>
+            {% endif %}
+        </div>
+    </section>
+
+    <section id="product1" class="section-p1">
+        <h2>Feature Products</h2>
+        <p>Summer Collection New Modern Design</p>
+        <div class="pro-container">
+            {% for i in product %}
+            <div class="pro">
+                <img src="{{i.mainimg.url}}" alt="PRODUCT1">
+                <div class="des">
+                    <span>{{i.brand}}</span>
+                    <h5>{{i.proname}}</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>₹{{i.price}}</h4>
+                </div>
+                <button data-item-id="{{i.id}}" class="add-btn" style="border: none;"><i class="fal fa-shopping-cart cart"></i></button>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="newsletter" class="section-p1 section-m1">
+        <div class="newstext">
+            <h4>SignUp For Newsletters</h4>
+            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+        </div>
+        <div class="form">
+            <input type="text" name="" id="" placeholder="Your Email Address">
+            <button class="normal">SignUp</button>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <h4>Contact</h4>
+            <p><b>Phone:</b> 9488690516</p>
+            <p><b>Email:</b> demonk.apparels@gmail.com</p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <div class="icon">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="{% url 'LOGIN' %}">SignIn</a>
+            <a href="{% url 'SHOWCART' %}">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Order</a>
+            <a href="#">Help</a>
+        </div>
+        <div class="copyright">
+            <p>ⓒ 2023, Monk</p>
+        </div>
+    </footer>
+
+
+    <script src="{% static 'JS/image.js' %}"></script>
+    <script src="{% static 'JS/singleproduct.js' %}"></script>
+    <script src="{% static 'JS/script.js' %}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#addCart').on('click', function() 
+            {
+                const selectedSize = $('#sizeSelect').val();
+                const productId = $(this).data('product-id');
+                console.log(productId);
+                if (!selectedSize)
+                {
+                    $('#msg').css('display','initial');
+                    $('#msg').text('Please Select The Size.')
+                    return;
+                }
+                $.ajax({
+                    url: '/addcart/',
+                    method: 'POST', 
+                    data: 
+                    {
+                        size: selectedSize,
+                        product_id: productId,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function(response) 
+                    {
+                        console.log("entr");
+                        if(response.msg=='0')
+                        {
+                            $('#msg').css('display','initial');
+                            $('#msg').text('Sorry The Selected Size Is Not In Stock.');
+                        }
+                        else if(response.msg=='Product Exists')
+                        {
+                            $('#msg').css('display','initial');
+                            $('#msg').text('Product Already Selected.');
+                        }
+                        else
+                        {
+                            $('#msg').css('display','initial');
+                            $('#msg').text('Product Successfully Added To Cart.');
+                            $('#addCart').css('background-color','#F94C10');
+                        }
+                    },
+                    error: function() 
+                    {
+                        $('#result').html('Error occurred.');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

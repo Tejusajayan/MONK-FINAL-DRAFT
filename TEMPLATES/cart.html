@@ -1,0 +1,287 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyCart - MONK</title>
+    <link rel="stylesheet" href="{% static 'BOOTSTRAP/bootstrap-5.2.1-dist/css/bootstrap.min.css.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/styles.css' %}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .delete-btn
+        {
+            border: 0;
+            background-color: #fff;
+            font-size: larger;
+            color: aqua;
+        }
+    </style>
+</head>
+<body>
+    
+    <section id="header">
+        <div class="log">
+            <a href="#"><h2 class="logo">MONK</h2></a>
+            <p>Gateway For Your Fashion Bliss</p>    
+        </div>
+        <div>
+            <ul id="navbar">
+                <li><a class="active" href="{% url 'INDEX' %}">HOME</a></li>
+                <li><a href="{% url 'SHOP' %}">SHOP</a></li>
+                <li><a href="{% url 'CONTACT' %}">CONTACT</a></li>
+                <li><a href="{% url 'ABOUT' %}">ABOUT</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'LOGOUT' %}">LOGOUT</a></li>
+                {% else %}
+                <li><a href="{% url 'LOGIN' %}">LOGIN</a></li>
+                {% endif %}
+                <li id="shoppingbag" class="active"><a href="{% url 'SHOWCART' %}"><i class="fas fa-shopping-cart"></i></a></li>
+                <li><a href="#" id="close"><i class="far fa-times"></i></a></li>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="#"><i class="far fa-shopping-bag"></i></a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+    <section id="page-header" class="about-header">
+        <h2>#Cart</h2>
+        <p>Add Your Coupon Code & Save Upto 15%</p>
+    </section>
+
+    {% if bool %}
+    <section id="cart" class="section-p1">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>Remove</td>
+                    <td>Image</td>
+                    <td>Product---Size</td>
+                    <td>Price</td>
+                    <td>Quantity</td>
+                    <td>Subtotal</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in cart %}
+                <tr id="cart-item-{{i.id}}">
+                    <td><button class="delete-btn" data-item-id="{{i.id}}"><i class="far fa-times-circle"></i></button></td>
+                    <td><img src="{{i.product.mainimg.url}}" alt=""></td>
+                    <td>{{i.product.proname}}---{{i.size}}</td>
+                    <td><span class="rate">₹{{i.product.price}}</span></td>
+                    <td>
+                        <div>
+                            <button class="minus" type="button" style="width: 25px;" data-item-id="{{ i.id }}"><span>-</span></button>
+                            <input type="number" min="1" value="{{i.quantity}}" class="value quantity input" readonly>
+                            <button class="plus" type="button" style="width: 25px;" data-item-id="{{ i.id }}"><span>+</span></button>
+                        </div>
+                    </td>
+                    <td><span class="subtotal1">₹{{i.subtotal}}</span> </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    {% endif %}
+
+    {% for i in messages %}
+        <center><h1 style="margin: 30px 0;">{{i}}</h1></center>
+    {% endfor %}
+
+    {% if bool %}
+    <section id="cart-add" class="section-p1">
+        <div id="coupon">
+            <h3>Apply Coupon</h3>
+            <div>
+                <input type="text" placeholder="Enter Your Coupon">
+                <button class="normal">Apply</button>
+            </div>
+        </div>
+        <div id="subtotal">
+            <h3>Cart Totals</h3>
+            <table>
+                <tr>
+                    <td>Cart Subtotal</td>
+                    <td id="cart-subtotal">₹{{subtotal}}</td>
+                </tr>
+                <tr>
+                    <td>Shipping</td>
+                    <td id="shipping-charge">₹30</td>
+                </tr>
+                <tr>
+                    <td><b>Total</b></td>
+                    <td id="cart-total"><b>₹{{total}}</b></td>
+                </tr>
+            </table>
+            <div class="ship-details">
+                <form action="{% url 'PAYMENT' %}" method="post">
+                    {% csrf_token %}
+                    <h3>Shipping Details</h3>
+                    {% render_field form.name type="text" placeholder="Name" %}
+                    {% render_field form.doorno_street_area type="text" placeholder="Doorno,Street,Area" %}
+                    {% render_field form.landmark type="text" placeholder="Landmark" %}
+                    {% render_field form.pincode type="number" placeholder="Pincode" %}
+                    {% render_field form.number type="number" placeholder="Mobile Number" %}
+                    <div class="pb">
+                        <button class="normal" value="COD" name="by">Cash On Delivery</button>
+                        <button class="normal" value="OP" name="by">Online Payment</button>
+                    </div>
+                </form>
+            </ship-details>
+        </div>
+    </section>
+    {% endif %}
+
+    <footer class="section-p1">
+        <div class="col">
+            <h4>Contact</h4>
+            <p><b>Address:</b> 118,Mannarpuram street, Mannarpuram, Mannar</p>
+            <p><b>Phone:</b> 9876543210, 1234567890</p>
+            <p><b>Hours:</b> 10.00 - 18.00 Mon-Sat</p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <div class="icon">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">SignIn</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Order</a>
+            <a href="#">Help</a>
+        </div>
+        <div class="copyright">
+            <p>ⓒ 2023, Monk</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'JS\quantitymanager.js' %}"></script>
+    <script src="{% static 'JS/script.js' %}"></script>
+    
+        <!-- DELETING PRODUCT -->
+        <script>
+            $(document).ready(function() {
+                $(".delete-btn").on("click", function() {
+                    var itemId = $(this).data("item-id");
+                    console.log("itemId");
+                    $.ajax({
+                        url: "/deletecart/",
+                        method: "POST",
+                        data: { "item_id": itemId,
+                                'csrfmiddlewaretoken': '{{ csrf_token }}'
+                              },
+                        success: function(response) 
+                        {
+                            if (response.success)
+                            {
+                                $("#cart-item-" + itemId).remove();
+                                console.log(response.subtotal)
+                                $('#cart-subtotal').text('₹'+response.subtotal)
+                                $('#cart-total').text('₹'+response.total)
+                            } 
+                             else 
+                                console.log("Error deleting product.");
+                        },
+                        error: function() 
+                        {
+                            console.log("An error occurred while sending the request.");
+                        }
+                    });
+                });
+            });
+        </script>
+        <!-- DELETING PRODUCT -->
+
+        <!-- INCREASE QUANTITY -->
+        <script>
+            $(document).ready(function() {
+                $('.plus').click(function(e) {
+                    e.preventDefault();
+                    var itemId = $(this).data('item-id');
+                    $.ajax({
+                        type: 'POST',
+                        url: '/incq/',
+                        data: {
+                            'item_id': itemId,
+                            'operation':'+',
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        },
+                        success: function(response) {
+                            if (response.success) 
+                            {
+                                console.log("Quantity updated successfully..");
+                                console.log(response.subtotal)
+                                $('#cart-subtotal').text('₹'+response.subtotal);
+                                $('#cart-total').text('₹'+response.total);
+                            } else 
+                            {
+                                console.log('Error:', response.error);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.log('Ajax request error:', error);
+                        }
+                    });
+                });
+            });
+        </script>
+        <!-- INCREASE QUANTITY -->
+
+        <!-- DECREASE QUANTITY -->
+        <script>
+            $(document).ready(function() {
+                $('.minus').click(function(e) {
+                    e.preventDefault();
+                    var itemId = $(this).data('item-id');
+                    $.ajax({
+                        type: 'POST',
+                        url: '/decq/',
+                        data: {
+                            'item_id': itemId,
+                            'operation':'-',
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        },
+                        success: function(response) 
+                        {
+                            if(response.msg=='1')
+                                $('.delete-btn').css('color','#ef3636');
+                            else if (response.success)
+                            {
+                                $('#cart-subtotal').text('₹'+response.subtotal)
+                                console.log(response.subtotal)
+                                $('#cart-total').text('₹'+response.total)
+                                console.log("Quantity decreased successfully..");
+                            }  
+                            else 
+                                console.log('Error:', response.error);
+                        },
+                        error: function(xhr, status, error) {
+                            console.log('Ajax request error:', error);
+                        }
+                    });
+                });
+            });
+        </script>
+        <!-- DECREASE QUANTITY -->
+
+</body>
+</html>
