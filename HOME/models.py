@@ -99,3 +99,10 @@ class message(models.Model):
 
     def __str__(self):
         return self.name
+
+class coupon(models.Model):
+    cname=models.CharField(max_length=8,default="")
+    price=models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.cname
